@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#120a1c">
+<title>Ramal RH — Central de Atendimento</title>
+<style>
+:root{--bg:#050713;--card:#0b1020;--card2:#101a30;--line:#173b55;--text:#e9fbff;--muted:#8aa8bd;--pri:#00e5ff;--pri2:#00a8ff;--green:#39ff88;--red:#ff3864;--blue:#00b7ff;--amber:#ffe45c}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+.top{background:linear-gradient(135deg,#080b1c,#111b3d 55%,#102a46);border-bottom:1px solid #00d9ff66;box-shadow:0 5px 28px #00d9ff18;padding:16px 22px}
+.top-in{max-width:1450px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#00e5ff,#176bff);display:grid;place-items:center;font-weight:900;color:#03101d;box-shadow:0 0 18px #00e5ff66,0 0 0 1px #ffffff22 inset}
+.brand h1{margin:0;font-size:20px}.brand p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.chip{background:#ffffff0f;border:1px solid var(--line);padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700}
+.wrap{max-width:1450px;margin:20px auto;padding:0 16px}
+.grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(320px,.6fr);gap:18px}
+.side{display:flex;flex-direction:column;gap:18px}
+.card{background:linear-gradient(145deg,#0c1224,#090d19);border:1px solid #00d9ff36;border-radius:18px;padding:18px;box-shadow:0 0 18px #00d9ff0b,inset 0 0 18px #315dff08}
+h2{margin:0 0 4px;font-size:17px}.sub{margin:0 0 14px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:700;font-size:13px;color:#fff;background:var(--card2);border:1px solid var(--line)}
+.btn:hover{filter:brightness(1.15)}
+.b-pri{background:var(--pri2);border-color:var(--pri2)}.b-green{background:var(--green);border-color:var(--green);color:#04170c}
+.b-red{background:var(--red);border-color:var(--red)}.b-blue{background:var(--blue);border-color:var(--blue)}
+.upload{border:2px dashed #00b7ff77;border-radius:16px;padding:22px 16px;text-align:center;background:#081326;box-shadow:inset 0 0 22px #00b7ff0c}
+.upload.drag{border-color:var(--pri);background:#1a1426}
+.field,textarea{width:100%;background:#0f0f14;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none}
+.field:focus,textarea:focus{border-color:var(--pri);box-shadow:0 0 0 2px #00e5ff20,0 0 14px #00e5ff20}textarea{resize:vertical;min-height:90px;line-height:1.5}
+.lbl{display:block;font-size:11.5px;font-weight:700;color:#63eaff;margin:12px 0 5px;text-shadow:0 0 10px #00d9ff33}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.stat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat b{display:block;font-size:22px;color:#fff;margin-bottom:4px}.stat span{font-size:11.5px;color:var(--muted)}
+.tabs{display:flex;gap:8px;margin:16px 0 4px;flex-wrap:wrap}
+.tab{flex:1;min-width:150px;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--text)}
+.tab.on{border-color:var(--pri);background:#08233a;box-shadow:0 0 14px #00e5ff24}.tab small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.tool{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.tool .field{width:auto;flex:1;min-width:150px}
+.tw{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;min-width:640px;border-collapse:collapse}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}
+th{background:#101015;color:var(--muted);font-size:11.5px}tr:last-child td{border-bottom:0}tr.cur{background:#221733}
+.tag{display:inline-block;border-radius:20px;padding:4px 9px;font-size:11px;font-weight:700}
+.s0{background:#3a2d12;color:var(--amber)}.s1{background:#10331f;color:#4ade80}.s2{background:#3a1519;color:#ff7b80}
+.w0{background:#23232c;color:var(--muted)}.w1{background:#10331f;color:#4ade80}.w2{background:#3a1519;color:#ff7b80}
+.acts{display:flex;gap:6px;flex-wrap:wrap}.acts .btn{padding:8px 10px;font-size:12px}
+.pg{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;color:var(--muted);font-size:12px}
+.now{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.now .big{font-size:22px;font-weight:800;letter-spacing:.5px;margin:6px 0}
+.empty{text-align:center;color:var(--muted);padding:26px 10px;font-size:13px}
+.note{margin-top:10px;padding:11px;border-radius:11px;background:#101015;border:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.5}
+.rep{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;background:#1a1426;color:#cdb6ea;font-size:12px;line-height:1.5}
+.toast{position:fixed;right:16px;bottom:16px;z-index:50;display:none;max-width:340px;padding:12px 15px;border-radius:12px;background:#fff;color:#111;font-size:13px;font-weight:600}
+.toast.show{display:block}
+@media(max-width:950px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+
+.top{position:relative;overflow:hidden;background:radial-gradient(900px 260px at 85% -40%,#7a3fc0aa,transparent 60%),radial-gradient(600px 220px at 0% 120%,#3b1d6a99,transparent 60%),linear-gradient(135deg,#0d0715,#1d1033 55%,#2a1745);box-shadow:0 10px 40px #0009}
+.top:before{content:"";position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.top:after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#b98cf0aa,transparent)}
+.top-in{position:relative;z-index:1}
+.logo{background:linear-gradient(145deg,#9a63d1,#4d2182);box-shadow:0 6px 20px #6a32a099,0 0 0 1px #ffffff33 inset}
+.cover-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.live{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#7ef0ad;background:#0f2a1c99;border:1px solid #1d5a3a;border-radius:20px;padding:8px 12px;backdrop-filter:blur(8px)}
+.dot{width:8px;height:8px;border-radius:50%;background:#22e07a;box-shadow:0 0 0 0 #22e07a99;animation:pl 1.8s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 8px #22e07a00}100%{box-shadow:0 0 0 0 #22e07a00}}
+.clk{font-variant-numeric:tabular-nums;font-size:13px;font-weight:800;color:#e9dcfa;background:#ffffff10;border:1px solid #ffffff22;border-radius:12px;padding:9px 12px;backdrop-filter:blur(8px)}
+.chip{backdrop-filter:blur(8px);background:#ffffff14;border-color:#ffffff26}
+.field,textarea{font-size:16px}
+.btn{min-height:42px}
+a.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.card{box-shadow:0 8px 30px #0006}
+@media(max-width:950px){.side{display:contents}.card.c-call{order:1}.card.c-list{order:2}.card.c-ram{order:3}.card.c-voz{order:4}.grid{display:flex;flex-direction:column}}
+@media(max-width:640px){
+  body{padding-bottom:env(safe-area-inset-bottom)}
+  .top{padding:14px 14px 14px;padding-top:calc(14px + env(safe-area-inset-top))}
+  .top-in{gap:12px}.brand h1{font-size:19px}.logo{width:42px;height:42px}
+  .cover-r{width:100%;gap:8px}.chip{flex:1 1 100%;text-align:center}.live,.clk{flex:1;justify-content:center;text-align:center}
+  .wrap{padding:0 10px;margin:12px auto}.card{padding:14px;border-radius:16px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-2px}.tab{flex:0 0 78%;min-width:0}
+  .tool{flex-direction:column}.tool .field{flex:1 1 auto!important;width:100%!important}
+  .acts .btn{flex:1 1 calc(50% - 6px);padding:12px 8px}
+  .now .big{font-size:26px}
+  .tw{border:0;overflow:visible}table{min-width:0;display:block}thead{display:none}tbody{display:block}
+  tbody tr{display:grid;grid-template-columns:1fr auto;gap:6px 10px;padding:12px;margin-bottom:8px;background:var(--card2);border:1px solid var(--line);border-radius:14px}
+  tbody tr.cur{border-color:var(--pri)}
+  tbody td{display:block;padding:0;border:0}
+  td.t-i{display:none}td.t-n{font-size:16px;grid-column:1}td.t-r{display:none}
+  td.t-w{grid-column:1}td.t-s{grid-column:2;grid-row:1;justify-self:end}td.t-a{grid-column:1/-1}
+  td.t-a .btn{width:100%}
+  tbody td.empty{grid-column:1/-1}
+  .pg .btn{flex:0 0 auto}
+}
+
+/* Conexão simplificada com celular */
+.connect-card{border:1px solid #6a32a0;background:linear-gradient(145deg,#211431,#141419);border-radius:16px;padding:16px;margin-top:12px}
+.connect-title{display:flex;align-items:center;gap:9px;font-weight:800;font-size:16px;margin-bottom:6px}
+.connect-steps{margin:10px 0 0;padding-left:22px;color:#d7d1e2;font-size:13px;line-height:1.65}
+.connect-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.connect-status{font-size:12px;line-height:1.5;color:#cdb6ea;margin-top:10px;padding:10px;border-radius:10px;background:#100d16;border:1px solid #3a3150}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><div class="logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div>
+  <div><h1>Ramal RH</h1><p>Central de Atendimento • 3 ramais</p></div></div>
+  <div class="cover-r"><div class="live"><i class="dot"></i>Linha ativa</div><div class="clk" id="clk">--:--</div><div class="chip" id="chipTop">☎ Atendimento 1: (11) 92488-8822</div></div>
+</div></header>
+
+<main class="wrap"><div class="grid">
+<section class="card c-list">
+  <h2>Lista de contatos</h2>
+  <p class="sub">Importe o arquivo .txt/.csv (um número por linha) ou cole abaixo. Entram os 10.000 primeiros números válidos de celular, sem repetidos.</p>
+  <div class="upload" id="drop">
+    <input id="file" type="file" accept=".txt,.csv,text/plain,text/csv" hidden>
+    <button class="btn b-pri" id="pick">Selecionar arquivo de números</button>
+    <p class="sub" style="margin:10px 0 0">ou arraste o arquivo para cá</p>
+  </div>
+  <textarea class="field" id="paste" placeholder="Ou cole os números aqui..." style="margin-top:10px"></textarea>
+  <div class="acts" style="margin-top:8px"><button class="btn" id="addPaste">Adicionar colados</button></div>
+  <div class="rep" id="rep"></div>
+
+  <div class="stats">
+    <div class="stat"><b id="sTotal">0</b><span>Contatos</span></div>
+    <div class="stat"><b id="sWa">0</b><span>Com WhatsApp</span></div>
+    <div class="stat"><b id="sNoWa">0</b><span>Sem WhatsApp</span></div>
+    <div class="stat"><b id="sEsp">0</b><span>Em espera (ramal)</span></div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="tool">
+    <input class="field" id="q" type="search" placeholder="Buscar número...">
+    <select class="field" id="flt" style="flex:0 0 190px">
+      <option value="todos">Todos</option><option value="espera">Em espera</option>
+      <option value="atendeu">Atendeu</option><option value="nao">Não atendeu</option>
+      <option value="wa1">Com WhatsApp</option><option value="wa2">Sem WhatsApp</option><option value="wa0">WhatsApp não marcado</option>
+    </select>
+  </div>
+  <div class="acts" style="margin-bottom:12px">
+    <button class="btn" id="expWa">Exportar com WhatsApp</button>
+    <button class="btn" id="expNo">Exportar sem WhatsApp</button>
+    <button class="btn" id="expAll">Exportar tudo</button>
+    <button class="btn b-red" id="clr">Limpar tudo</button>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Número</th><th>Ramal</th><th>WhatsApp</th><th>Status</th><th>Ações</th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table></div>
+  <div class="pg"><button class="btn" id="prev">← Anterior</button><span id="pgi"></span><button class="btn" id="next">Próxima →</button></div>
+</section>
+
+<div class="side">
+<aside class="card c-call">
+  <h2>Central de chamadas</h2>
+  <p class="sub" id="whoSub">Ramal ativo</p>
+  <div id="now"><div class="empty">Importe os números para iniciar a fila.</div></div>
+  <div class="acts"><button class="btn b-pri" id="nextCall">Próximo →</button><button class="btn b-blue" id="zapRamal">WhatsApp do ramal</button></div>
+  <div class="note">O botão <b>Ligar agora</b> abre o discador do aparelho onde o site está aberto. Para ligar pelo celular sem Outlook ou Bluetooth, abra o link do Ramal RH diretamente no próprio celular.</div>
+  <div class="connect-card">
+    <div class="connect-title">🌐 Ligar pelo link — sem Outlook e sem Bluetooth</div>
+    <p class="sub" style="margin-bottom:6px">O funcionário deve abrir o link do Ramal RH no próprio celular. Assim, ao tocar em “Ligar agora” ou “Chamar”, o discador desse celular abre com o número preenchido.</p>
+    <ol class="connect-steps">
+      <li>Publique este arquivo como um site online e envie o endereço do site ao funcionário.</li>
+      <li>O funcionário abre o endereço no Chrome do próprio celular.</li>
+      <li>Ele importa a lista de contatos ou cola os números no painel.</li>
+      <li>Toca em “Ligar agora” e depois no botão verde do discador.</li>
+    </ol>
+    <div class="connect-status">
+      <b>Importante:</b> este arquivo aberto no computador não consegue enviar números para o celular de alguém que mora longe. Para isso, não é preciso Outlook nem Bluetooth: o funcionário abre o site no próprio celular. Se todos precisarem compartilhar a mesma fila e os mesmos status em tempo real, será necessário conectar o site a uma base de dados online.
+    </div>
+  </div>
+</aside>
+
+<aside class="card c-ram">
+  <h2>Ramais de atendimento</h2>
+  <p class="sub">Os contatos são divididos em 3 lotes, um por ramal. O Ramal 1 é o chip principal.</p>
+  <label class="lbl">Ramal 1 (chip principal)</label><input class="field" id="r0" inputmode="tel">
+  <label class="lbl">Ramal 2</label><input class="field" id="r1" inputmode="tel" placeholder="DDD + número">
+  <label class="lbl">Ramal 3</label><input class="field" id="r2" inputmode="tel" placeholder="DDD + número">
+</aside>
+
+<aside class="card c-voz">
+  <h2>Mensagem de voz</h2>
+  <p class="sub">Use <b>{empresa}</b> para o nome da empresa. O teste de voz toca neste aparelho; para o candidato ouvir a mensagem durante a ligação, é necessário um serviço de URA telefônica.</p>
+  <label class="lbl" for="emp">Nome da empresa</label>
+  <input class="field" id="emp" placeholder="Nome da sua empresa">
+  <label class="lbl" for="msg">Texto</label>
+  <textarea class="field" id="msg"></textarea>
+  <label class="lbl" for="voz">Voz</label><select class="field" id="voz"></select>
+  <label class="lbl" for="vel">Velocidade</label>
+  <select class="field" id="vel"><option value="0.85">Mais lenta</option><option value="0.93" selected>Natural</option><option value="1.03">Mais rápida</option></select>
+  <div class="acts" style="margin-top:12px"><button class="btn b-green" id="test">▶ Testar</button><button class="btn" id="stop">■ Parar</button><button class="btn" id="rst">Restaurar texto</button></div>
+</aside>
+</div>
+</div></main>
+<div class="toast" id="toast"></div>
+
+<script>
+const MAX=10000,PAGE=50,K="ramalrh_dark_v1";
+const MSG0="Olá, tudo bem? Aqui é do RH da {empresa}. Estamos entrando em contato porque recebemos o seu currículo e temos uma oportunidade para conversar com você. Se preferir não receber mais contato, é só nos avisar. Muito obrigada e tenha um ótimo dia!";
+const DDD=new Set("11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 71 73 74 75 77 79 81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99".split(" "));
+let L=[],ram=["11924888822","",""],ativo=0,cur=[-1,-1,-1],pag=0,emp="",msg=MSG0,vozSel="",voices=[],tt=null;
+const $=i=>document.getElementById(i);
+const toast=m=>{const e=$("toast");e.textContent=m;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),3000)};
+const ST=["Em espera","Atendeu","Não atendeu"],WA=["Não marcado","Tem WhatsApp","Sem WhatsApp"];
+
+function salvar(){try{localStorage.setItem(K,JSON.stringify({L,ram,ativo,cur,emp,msg,vozSel}))}catch(e){toast("Memória do navegador cheia.")}}
+function carregar(){try{const d=JSON.parse(localStorage.getItem(K)||"null");if(d){L=d.L||[];ram=d.ram||ram;ativo=d.ativo||0;cur=d.cur||cur;emp=d.emp||"";msg=d.msg||MSG0;vozSel=d.vozSel||""}}catch(e){}}
+const fmt=n=>n.length===11?`(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`:n;
+
+/* ---- importação ---- */
+function importar(texto){
+  const ja=new Set(L.map(x=>x.n));let lidos=0,inval=0,dup=0,cort=0,novos=0;
+  const partes=String(texto).split(/[\r\n,;\t ]+/);
+  for(const p of partes){
+    if(!p)continue;lidos++;
+    let n=p.replace(/\D/g,"");
+    if(n.length===13&&n.startsWith("55"))n=n.slice(2);
+    if(n.length!==11||n[2]!=="9"||!DDD.has(n.slice(0,2))){inval++;continue}
+    if(ja.has(n)){dup++;continue}
+    if(L.length>=MAX){cort++;continue}
+    ja.add(n);L.push({n,s:0,w:0,a:L.length%3,t:0});novos++;
+  }
+  salvar();pag=0;render();
+  const r=$("rep");r.style.display="block";
+  r.innerHTML=`Lidos: <b>${lidos}</b> • Adicionados: <b>${novos}</b> • Inválidos: ${inval} • Repetidos: ${dup} • Fora do limite de ${MAX.toLocaleString("pt-BR")}: ${cort}`;
+  toast(novos+" contatos adicionados.");
+}
+$("pick").onclick=()=>$("file").click();
+$("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>importar(r.result);r.readAsText(f);e.target.value=""};
+$("addPaste").onclick=()=>{importar($("paste").value);$("paste").value=""};
+["dragenter","dragover"].forEach(n=>$("drop").addEventListener(n,e=>{e.preventDefault();$("drop").classList.add("drag")}));
+["dragleave","drop"].forEach(n=>$("drop").addEventListener(n,e=>{e.preventDefault();$("drop").classList.remove("drag");
+  if(n==="drop"){const f=e.dataTransfer.files[0];if(f){const r=new FileReader();r.onload=()=>importar(r.result);r.readAsText(f)}}}));
+
+/* ---- lista ---- */
+function visiveis(){
+  const q=$("q").value.replace(/\D/g,""),f=$("flt").value,out=[];
+  for(let i=0;i<L.length;i++){
+    const c=L[i];if(c.a!==ativo)continue;
+    if(f==="espera"&&c.s!==0)continue;if(f==="atendeu"&&c.s!==1)continue;if(f==="nao"&&c.s!==2)continue;
+    if(f==="wa1"&&c.w!==1)continue;if(f==="wa2"&&c.w!==2)continue;if(f==="wa0"&&c.w!==0)continue;
+    if(q&&!c.n.includes(q))continue;out.push(i);
+  }
+  return out;
+}
+function render(){
+  $("sTotal").textContent=L.length.toLocaleString("pt-BR");
+  $("sWa").textContent=L.filter(c=>c.w===1).length.toLocaleString("pt-BR");
+  $("sNoWa").textContent=L.filter(c=>c.w===2).length.toLocaleString("pt-BR");
+  $("sEsp").textContent=L.filter(c=>c.a===ativo&&c.s===0).length.toLocaleString("pt-BR");
+  $("chipTop").textContent="☎ Atendimento "+(ativo+1)+": "+(ram[ativo]?fmt(ram[ativo]):"não definido");
+  $("tabs").innerHTML=[0,1,2].map(a=>`<button class="tab ${a===ativo?"on":""}" data-a="${a}"><b>Ramal ${a+1}</b><small>${ram[a]?fmt(ram[a]):"sem número"} • ${L.filter(c=>c.a===a).length.toLocaleString("pt-BR")} contatos</small></button>`).join("");
+  const v=visiveis(),pgs=Math.max(1,Math.ceil(v.length/PAGE));if(pag>=pgs)pag=pgs-1;
+  const fatia=v.slice(pag*PAGE,pag*PAGE+PAGE);
+  $("tb").innerHTML=fatia.length?fatia.map(i=>{const c=L[i];return`<tr class="${cur[ativo]===i?"cur":""}">
+<td class="t-i">${i+1}</td><td class="t-n"><b>${fmt(c.n)}</b></td><td class="t-r">Ramal ${c.a+1}</td>
+<td class="t-w"><span class="tag w${c.w}">${WA[c.w]}</span></td><td class="t-s"><span class="tag s${c.s}">${ST[c.s]}</span></td>
+<td class="t-a"><div class="acts"><button class="btn b-pri" data-go="${i}">Chamar</button></div></td></tr>`}).join(""):'<tr><td colspan="6" class="empty">Nenhum contato nesta visão.</td></tr>';
+  $("pgi").textContent=`Página ${pag+1} de ${pgs} • ${v.length.toLocaleString("pt-BR")} contatos`;
+  $("prev").disabled=pag===0;$("next").disabled=pag>=pgs-1;
+  renderAgora();
+}
+function renderAgora(){
+  $("whoSub").textContent="Ramal "+(ativo+1)+" • "+(ram[ativo]?fmt(ram[ativo]):"defina o número abaixo");
+  const i=cur[ativo],c=L[i];
+  if(!c||c.a!==ativo){$("now").innerHTML='<div class="empty">Clique em <b>Próximo →</b> para iniciar a fila deste ramal.</div>';return}
+  $("now").innerHTML=`<div class="now"><span class="tag s${c.s}">${ST[c.s]}</span> <span class="tag w${c.w}">${WA[c.w]}</span>
+<div class="big"><a href="tel:+55${c.n}" target="_top" style="color:inherit;text-decoration:none">${fmt(c.n)}</a></div><div class="sub" style="margin:0">Contato ${i+1} • ${c.t} tentativa(s)</div></div>
+<div class="acts"><a class="btn b-green" data-k="ligar" href="tel:+55${c.n}">📞 Ligar agora</a><button class="btn b-green" data-k="atendeu">Atendeu + mensagem</button><button class="btn b-red" data-k="nao">Não atendeu</button></div>
+<div class="acts" style="margin-top:8px"><button class="btn b-blue" data-k="zap">Abrir WhatsApp</button><button class="btn" data-k="ligar2">📞 Ligar (reserva)</button><button class="btn" data-k="copiar">📋 Copiar número</button><button class="btn" data-k="w1">✔ Tem WhatsApp</button><button class="btn" data-k="w2">✕ Sem WhatsApp</button></div>`;
+}
+$("tabs").onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;ativo=+b.dataset.a;pag=0;salvar();render()};
+$("tb").onclick=e=>{const b=e.target.closest("[data-go]");if(!b)return;cur[ativo]=+b.dataset.go;salvar();render();window.scrollTo({top:0,behavior:"smooth"})};
+$("now").onclick=e=>{
+  const b=e.target.closest("[data-k]");if(!b)return;const c=L[cur[ativo]];if(!c)return;const k=b.dataset.k;
+  if(k==="ligar"){c.t++;salvar();copiar(c.n);toast("Abrindo o discador... número copiado caso precise colar.");return}
+  else if(k==="copiar"){copiar(c.n);toast("Número copiado: "+fmt(c.n))}
+  else if(k==="ligar2"){c.t++;salvar();copiar(c.n);window.location.href="tel:+55"+c.n}
+  else if(k==="atendeu"){if(!emp.trim()){toast("Preencha o nome da empresa na mensagem de voz.");return}c.s=1;c.t++;salvar();render();falar(texto())}
+  else if(k==="nao"){c.s=2;c.t++;salvar();render()}
+  else if(k==="zap"){window.open("https://wa.me/55"+c.n+"?text="+encodeURIComponent(texto()),"_blank")}
+  else if(k==="w1"){c.w=1;salvar();render()}
+  else if(k==="w2"){c.w=2;salvar();render()}
+};
+$("nextCall").onclick=()=>{
+  pararVoz();let i=cur[ativo];if(i<0)i=-1;
+  for(let k=i+1;k<L.length;k++){if(L[k].a===ativo&&L[k].s===0){cur[ativo]=k;salvar();render();return}}
+  toast("Ninguém mais em espera neste ramal.");
+};
+$("zapRamal").onclick=()=>{if(ram[ativo])window.open("https://wa.me/55"+ram[ativo],"_blank");else toast("Defina o número do ramal.")};
+$("q").oninput=()=>{pag=0;render()};$("flt").onchange=()=>{pag=0;render()};
+$("prev").onclick=()=>{pag--;render()};$("next").onclick=()=>{pag++;render()};
+
+function copiar(t){
+  try{if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t);return}}catch(e){}
+  const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();
+  try{document.execCommand("copy")}catch(e){}a.remove();
+}
+/* ---- ramais ---- */
+[0,1,2].forEach(i=>{$("r"+i).oninput=e=>{let n=e.target.value.replace(/\D/g,"");if(n.length===13&&n.startsWith("55"))n=n.slice(2);ram[i]=n.slice(0,11);salvar();render()}});
+
+
+/* ---- ajuda simplificada para conectar telefone ---- */
+
+
+/* ---- exportar ---- */
+function exportar(filtro,nome){
+  const rows=L.filter(filtro);if(!rows.length){toast("Nada para exportar.");return}
+  const csv="\ufeffNumero;Ramal;WhatsApp;Status\r\n"+rows.map(c=>[c.n,"Ramal "+(c.a+1),WA[c.w],ST[c.s]].join(";")).join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download=nome;document.body.appendChild(a);a.click();a.remove();
+}
+$("expWa").onclick=()=>exportar(c=>c.w===1,"com-whatsapp.csv");
+$("expNo").onclick=()=>exportar(c=>c.w===2,"sem-whatsapp.csv");
+$("expAll").onclick=()=>exportar(()=>true,"todos.csv");
+$("clr").onclick=()=>{if(L.length&&confirm("Apagar todos os contatos?")){L=[];cur=[-1,-1,-1];salvar();render()}};
+
+/* ---- voz ---- */
+function pontuar(v){
+  const n=(v.name||"").toLowerCase(),l=(v.lang||"").replace("_","-").toLowerCase();let s=0;
+  if(l==="pt-br")s+=100;else if(l.startsWith("pt"))s+=40;else return -1;
+  if(/natural|neural|online|premium|enhanced/.test(n))s+=60;
+  if(/francisca|maria|luciana|fernanda|vit[oó]ria|helena|female|feminina|thalita|camila/.test(n))s+=50;
+  if(/google/.test(n))s+=20;if(/daniel|ant[oô]nio|male|masculin|felipe|ricardo|jorge/.test(n))s-=80;return s;
+}
+function vozes(){
+  if(!("speechSynthesis" in window))return;
+  voices=speechSynthesis.getVoices().map(v=>({v,s:pontuar(v)})).filter(x=>x.s>=0).sort((a,b)=>b.s-a.s).map(x=>x.v);
+  const sel=$("voz");sel.innerHTML=voices.length?voices.map((v,i)=>`<option value="${v.name}">${i?"":"★ "}${v.name} (${v.lang})</option>`).join(""):'<option value="">Voz padrão do aparelho</option>';
+  if(vozSel&&voices.some(v=>v.name===vozSel))sel.value=vozSel;
+}
+if("speechSynthesis" in window){vozes();speechSynthesis.addEventListener("voiceschanged",vozes)}
+const texto=()=>msg.replace(/\{empresa\}/gi,emp.trim()).replace(/\s{2,}/g," ").trim();
+function falar(t){
+  if(!("speechSynthesis" in window)){toast("Seu navegador não suporta voz.");return}
+  speechSynthesis.cancel();
+  const v=voices.find(x=>x.name===$("voz").value)||voices[0]||null,vel=parseFloat($("vel").value)||.93;
+  (t.match(/[^.!?;:]+[.!?;:]?/g)||[t]).map(s=>s.trim()).filter(Boolean).forEach(s=>{
+    const u=new SpeechSynthesisUtterance(s);u.lang="pt-BR";if(v){u.voice=v;u.lang=v.lang}u.rate=vel;u.pitch=1.08;speechSynthesis.speak(u);
+  });
+}
+const pararVoz=()=>{if("speechSynthesis" in window)speechSynthesis.cancel()};
+$("emp").oninput=e=>{emp=e.target.value;salvar()};
+$("msg").oninput=e=>{msg=e.target.value;salvar()};
+$("voz").onchange=e=>{vozSel=e.target.value;salvar()};
+$("test").onclick=()=>{if(!emp.trim()){toast("Preencha o nome da empresa.");return}falar(texto())};
+$("stop").onclick=pararVoz;
+$("rst").onclick=()=>{msg=MSG0;$("msg").value=msg;salvar()};
+
+const tick=()=>{const d=new Date();$("clk").textContent=d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})};tick();setInterval(tick,20000);
+if(window.top!==window.self){const b=document.createElement("div");b.style.cssText="background:#e9a23b;color:#1a1200;padding:12px 14px;font-size:13px;font-weight:700;line-height:1.4;text-align:center";b.textContent="Atenção: esta página está dentro de outra janela, e o celular bloqueia ligações aqui. Baixe o arquivo e abra direto no Chrome para o botão Ligar funcionar.";document.body.insertBefore(b,document.body.firstChild)}
+carregar();
+$("emp").value=emp;$("msg").value=msg;[0,1,2].forEach(i=>$("r"+i).value=ram[i]?fmt(ram[i]):"");
+vozes();render();
+</script>
+</body>
+</html>
